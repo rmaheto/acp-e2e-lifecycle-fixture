@@ -27,6 +27,11 @@ class TextUtilsTest {
   }
 
   @Test
+  void normalizeDisplayName_whenEmpty_returnsEmpty() {
+    assertEquals("", TextUtils.normalizeDisplayName(""));
+  }
+
+  @Test
   void normalizeDisplayName_whenSurroundedByWhitespace_trimsWhitespace() {
     assertEquals("Ada Lovelace", TextUtils.normalizeDisplayName(" \tAda Lovelace\n "));
   }
@@ -34,6 +39,13 @@ class TextUtilsTest {
   @Test
   void normalizeDisplayName_whenWhitespaceIsRepeated_collapsesToSingleSpaces() {
     assertEquals("Ada Lovelace Byron", TextUtils.normalizeDisplayName("Ada \t\n Lovelace  Byron"));
+  }
+
+  @Test
+  void normalizeDisplayName_matchesAcceptanceExamples() {
+    assertEquals("John Smith", TextUtils.normalizeDisplayName("  John   Smith  "));
+    assertEquals("John Smith", TextUtils.normalizeDisplayName("John Smith"));
+    assertEquals("John", TextUtils.normalizeDisplayName(" John "));
   }
 
   @Test
