@@ -10,6 +10,11 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns whether the value is null or has zero length. */
+  public static boolean isNullOrEmpty(String value) {
+    return value == null || value.length() == 0;
+  }
+
   /** Returns whether the value ends with the specified suffix. */
   public static boolean endsWith(String value, String suffix) {
     return value != null && suffix != null && value.endsWith(suffix);

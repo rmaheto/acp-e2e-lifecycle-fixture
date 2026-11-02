@@ -19,6 +19,26 @@ class TextUtilsTest {
   }
 
   @Test
+  void isNullOrEmpty_whenValueIsNull_returnsTrue() {
+    assertTrue(TextUtils.isNullOrEmpty(null));
+  }
+
+  @Test
+  void isNullOrEmpty_whenValueIsEmpty_returnsTrue() {
+    assertTrue(TextUtils.isNullOrEmpty(""));
+  }
+
+  @Test
+  void isNullOrEmpty_whenValueIsWhitespaceOnly_returnsFalse() {
+    assertFalse(TextUtils.isNullOrEmpty(" \t\n"));
+  }
+
+  @Test
+  void isNullOrEmpty_whenValueIsNonEmpty_returnsFalse() {
+    assertFalse(TextUtils.isNullOrEmpty("hello"));
+  }
+
+  @Test
   void endsWith_whenSuffixMatches_returnsTrue() {
     assertTrue(TextUtils.endsWith("hello world", "world"));
   }
