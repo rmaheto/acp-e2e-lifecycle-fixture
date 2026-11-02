@@ -15,6 +15,11 @@ public final class TextUtils {
     return value != null && suffix != null && value.endsWith(suffix);
   }
 
+  /** Returns whether the value starts with the specified prefix. */
+  public static boolean startsWith(String value, String prefix) {
+    return value != null && prefix != null && value.startsWith(prefix);
+  }
+
   /** Returns a display name with whitespace trimmed and collapsed to single spaces. */
   public static String normalizeDisplayName(String name) {
     if (name == null) {

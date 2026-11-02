@@ -44,6 +44,31 @@ class TextUtilsTest {
   }
 
   @Test
+  void startsWith_whenPrefixMatches_returnsTrue() {
+    assertTrue(TextUtils.startsWith("hello world", "hello"));
+  }
+
+  @Test
+  void startsWith_whenPrefixDoesNotMatch_returnsFalse() {
+    assertFalse(TextUtils.startsWith("hello world", "world"));
+  }
+
+  @Test
+  void startsWith_whenPrefixIsEmpty_returnsTrue() {
+    assertTrue(TextUtils.startsWith("hello", ""));
+  }
+
+  @Test
+  void startsWith_whenValueIsNull_returnsFalse() {
+    assertFalse(TextUtils.startsWith(null, "prefix"));
+  }
+
+  @Test
+  void startsWith_whenPrefixIsNull_returnsFalse() {
+    assertFalse(TextUtils.startsWith("value", null));
+  }
+
+  @Test
   void normalizeDisplayName_whenNull_returnsEmpty() {
     assertEquals("", TextUtils.normalizeDisplayName(null));
   }
