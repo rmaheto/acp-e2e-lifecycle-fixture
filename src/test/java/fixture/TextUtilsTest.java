@@ -1,6 +1,8 @@
 package fixture;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +16,31 @@ class TextUtilsTest {
   @Test
   void shout_whenText_returnsUpperCase() {
     assertEquals("HELLO", TextUtils.shout("hello"));
+  }
+
+  @Test
+  void endsWith_whenSuffixMatches_returnsTrue() {
+    assertTrue(TextUtils.endsWith("hello world", "world"));
+  }
+
+  @Test
+  void endsWith_whenSuffixDoesNotMatch_returnsFalse() {
+    assertFalse(TextUtils.endsWith("hello world", "hello"));
+  }
+
+  @Test
+  void endsWith_whenSuffixIsEmpty_returnsTrue() {
+    assertTrue(TextUtils.endsWith("hello", ""));
+  }
+
+  @Test
+  void endsWith_whenValueIsNull_returnsFalse() {
+    assertFalse(TextUtils.endsWith(null, "suffix"));
+  }
+
+  @Test
+  void endsWith_whenSuffixIsNull_returnsFalse() {
+    assertFalse(TextUtils.endsWith("value", null));
   }
 
   @Test

@@ -10,6 +10,11 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns whether the value ends with the specified suffix. */
+  public static boolean endsWith(String value, String suffix) {
+    return value != null && suffix != null && value.endsWith(suffix);
+  }
+
   /** Returns a display name with whitespace trimmed and collapsed to single spaces. */
   public static String normalizeDisplayName(String name) {
     if (name == null) {
