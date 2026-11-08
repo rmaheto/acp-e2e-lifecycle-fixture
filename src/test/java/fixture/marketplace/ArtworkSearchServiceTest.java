@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ArtworkSearchServiceTest {
     private final ArtworkSearchService service = new ArtworkSearchService(() -> List.of(
@@ -23,9 +24,14 @@ class ArtworkSearchServiceTest {
     @Test
     void ignoresBlankFiltersAndHandlesMissingAttributesSafely() {
         assertEquals(3, service.search("  ", "", null, null, null).size());
-        assertEquals(0, service.search(null, null, "canvas", null, null).size());
-        assertEquals(0, service.search(null, null, null, new BigDecimal("0"), null).stream()
-                .filter(artwork -> artwork.price() == null).count());
+
+        var canvasResults = service.search(null, null, "canvas", null, null);
+        assertEquals(2, canvasResults.size());
+        assertTrue(canvasResults.stream().allMatch(artwork -> artwork.medium() != null));
+
+        var priceBoundResults = service.search(null, null, null, new BigDecimal("0"), null);
+        assertEquals(2, priceBoundResults.size());
+        assertTrue(priceBoundResults.stream().allMatch(artwork -> artwork.price() != null));
     }
 
     @Test
