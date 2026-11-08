@@ -1,5 +1,6 @@
 package fixture.marketplace;
 
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,15 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> reserve(@RequestBody ReservationRequest request) {
+    public ResponseEntity<ReservationResponse> reserve(@RequestBody ReservationRequest request) {
         if (request == null || request.artworkId() == null) {
             throw new IllegalArgumentException("An artworkId is required.");
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.reserve(request.artworkId()));
+        Reservation reservation = reservationService.reserve(request.artworkId());
+        ReservationResponse response = new ReservationResponse(
+                reservation.id(), reservation.artworkId(), reservation.status(),
+                reservation.createdAt(), reservation.expiresAt());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @ExceptionHandler(ReservationService.ReservationConflictException.class)
@@ -38,4 +43,7 @@ public class ReservationController {
     }
 
     public record ReservationRequest(UUID artworkId) { }
+
+    public record ReservationResponse(UUID id, UUID artworkId, ReservationStatus status,
+                                     Instant createdAt, Instant expiresAt) { }
 }
