@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/artworks")
 public class ArtworkSearchController {
     private final ArtworkSearchService searchService;
+    private final ReservationService reservationService;
 
-    public ArtworkSearchController(ArtworkSearchService searchService) {
+    public ArtworkSearchController(ArtworkSearchService searchService, ReservationService reservationService) {
         this.searchService = searchService;
+        this.reservationService = reservationService;
     }
 
     @GetMapping("/search")
@@ -27,7 +29,11 @@ public class ArtworkSearchController {
             @RequestParam(required = false) String medium,
             @RequestParam(required = false) String minPrice,
             @RequestParam(required = false) String maxPrice) {
-        List<Artwork> results = searchService.search(artist, title, medium, parsePrice(minPrice), parsePrice(maxPrice));
+        List<SearchResult> results = searchService.search(artist, title, medium, parsePrice(minPrice), parsePrice(maxPrice))
+                .stream()
+                .map(artwork -> new SearchResult(artwork.id(), artwork.artist(), artwork.title(), artwork.medium(),
+                        artwork.price(), reservationService.isAvailable(artwork.id())))
+                .toList();
         return new SearchResponse(results, results.size());
     }
 
@@ -45,5 +51,8 @@ public class ArtworkSearchController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", exception.getMessage()));
     }
 
-    public record SearchResponse(List<Artwork> results, int count) { }
+    public record SearchResponse(List<SearchResult> results, int count) { }
+
+    public record SearchResult(java.util.UUID id, String artist, String title, String medium, BigDecimal price,
+            boolean available) { }
 }

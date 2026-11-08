@@ -16,10 +16,16 @@ input:focus-visible, button:focus-visible { outline: 3px solid #2369b0; outline-
 button { min-height: 2.8rem; margin-top: 1.25rem; padding: .65rem 1.2rem; border: 0; border-radius: 6px; background: #174e75; color: white; font: inherit; font-weight: 700; cursor: pointer; }
 button:hover { background: #103c5b; }
 button:disabled { opacity: .65; cursor: wait; }
+button.reserve-button { margin-top: .8rem; }
+button.reserve-button:disabled { background: #64747f; cursor: not-allowed; }
 .results { margin-top: 1.5rem; }
 #status { color: #53616c; line-height: 1.5; }
 .artwork-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: .8rem; padding: 0; list-style: none; }
 .artwork-card { padding: 1rem; border: 1px solid #d9e0e5; border-radius: 8px; }
 .artwork-card h3 { margin: 0 0 .4rem; }
 .artwork-card p { margin: .25rem 0; color: #46545f; }
+.availability { font-weight: 700; }
+.availability.available { color: #21633c; }
+.availability.unavailable { color: #8b3a32; }
+.reservation-status { min-height: 1.5em; margin-bottom: 0; color: #174e75 !important; }
 @media (max-width: 560px) { .page { width: min(100% - 1.25rem, 920px); padding-top: 1.5rem; } .fields { grid-template-columns: 1fr; } .search-panel, .results { padding: 1rem; } button { width: 100%; } }

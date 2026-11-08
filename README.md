@@ -11,7 +11,7 @@ Start the application with:
 mvn spring-boot:run
 ```
 
-Open <http://localhost:8080/> for the visitor search page. Run automated tests with `mvn test`.
+Open <http://localhost:8080/> for the visitor search and reservation page. Run automated tests with `mvn test`.
 
 ## Artwork search API
 
@@ -20,7 +20,7 @@ Open <http://localhost:8080/> for the visitor search page. Run automated tests w
 - `artist`, `title`, `medium`: text to match.
 - `minPrice`, `maxPrice`: non-negative decimal price bounds.
 
-Omitted and blank parameters are ignored. All supplied filters are combined with AND. Text matching is a case-insensitive substring match. Price bounds are inclusive. Artworks with a missing text attribute do not match a text filter; artworks with a missing price do not match a price-bound filter. Supplying malformed or negative prices, or a minimum above the maximum, returns HTTP 400 with a JSON `error` message.
+Omitted and blank parameters are ignored. All supplied filters are combined with AND. Text matching is a case-insensitive substring match. Price bounds are inclusive. Artworks with a missing text attribute do not match a text filter; artworks with a missing price do not match a price-bound filter. Supplying malformed or negative prices, or a minimum above the maximum, returns HTTP 400 with a JSON `error` message. Each result includes an `available` flag reflecting current reservation availability.
 
 Example request:
 
@@ -28,14 +28,16 @@ Example request:
 GET /api/artworks/search?artist=monet&minPrice=10&maxPrice=1000
 ```
 
-Example response:
+## Reservations
 
-```json
-{"results":[{"id":"11111111-1111-4111-8111-111111111111","artist":"Claude Monet","title":"Water Lilies","medium":"Oil on canvas","price":850.00}],"count":1}
+Visitors can reserve an available artwork for 72 hours. Create a reservation by sending the artwork UUID to `POST /api/reservations`:
+
+```http
+Content-Type: application/json
+
+{"artworkId":"11111111-1111-4111-8111-111111111111"}
 ```
 
-An empty search returns all catalog entries. `count` is the number of returned results. The API and browser page are served by the same application.
+A successful request returns HTTP 201 and the reservation, including its `RESERVED` status, creation time, and expiry time. Unknown artwork IDs return HTTP 400; an artwork with an active reservation returns HTTP 409. An active reservation makes the artwork unavailable until its expiry, exactly 72 hours after creation. Expired reservations no longer block a new reservation. Reservation data is held in memory and does not survive application restarts.
 
-## Demo catalog limitation
-
-The default provider supplies deterministic in-memory demo artworks so a fresh run can demonstrate search. This is not a production gallery catalog or current inventory; it is replaceable through the `ArtworkCatalog` provider boundary. No purchasing, catalog editing, or production catalog persistence is included.
+The default provider supplies deterministic in-memory demo artworks so a fresh run can demonstrate search and reservations. This is not a production gallery catalog or current inventory; it is replaceable through the `ArtworkCatalog` provider boundary. No purchasing, catalog editing, or production catalog persistence is included.
