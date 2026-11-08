@@ -42,7 +42,7 @@ class ArtworkSearchApplicationTest {
 
     @Test
     void servesVisitorPage() throws Exception {
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/index.html"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Find an artwork")))
                 .andExpect(content().string(containsString("search-form")));
