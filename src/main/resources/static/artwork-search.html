@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find artworks by artist, title, medium, and price.">
+  <title>Find an artwork</title>
+  <link rel="stylesheet" href="artwork-search.css">
+  <script src="artwork-search.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Find an artwork</h1>
+    <p class="intro">Choose any details you know. Leave a field empty if you do not want to use it.</p>
+
+    <form id="artwork-search-form" class="search-panel" role="search">
+      <div class="fields">
+        <label for="artist">Artist
+          <input id="artist" name="artist" type="search" autocomplete="off">
+        </label>
+        <label for="title">Title
+          <input id="title" name="title" type="search" autocomplete="off">
+        </label>
+        <label for="medium">Medium
+          <input id="medium" name="medium" type="search" autocomplete="off">
+        </label>
+        <label for="minimum-price">Minimum price
+          <input id="minimum-price" name="minimumPrice" type="number" min="0" step="0.01" inputmode="decimal">
+        </label>
+        <label for="maximum-price">Maximum price
+          <input id="maximum-price" name="maximumPrice" type="number" min="0" step="0.01" inputmode="decimal">
+        </label>
+      </div>
+      <button id="search-button" type="submit">Search artworks</button>
+    </form>
+
+    <section class="results" aria-labelledby="results-heading">
+      <h2 id="results-heading">Search results</h2>
+      <p id="search-status" class="status" role="status" aria-live="polite">Enter search details and select Search artworks.</p>
+      <ul id="artwork-results" class="result-list" aria-label="Matching artworks"></ul>
+    </section>
+  </main>
+</body>
+</html>
