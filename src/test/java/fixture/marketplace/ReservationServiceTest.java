@@ -42,6 +42,26 @@ class ReservationServiceTest {
     }
 
     @Test
+    void scheduledExpirySweepTransitionsAtThe72HourBoundaryAndAllowsAnotherReservation() {
+        MutableClock clock = new MutableClock(Instant.parse("2026-01-01T12:00:00Z"));
+        ReservationService service = new ReservationService(() -> List.of(ARTWORK), clock);
+        Reservation original = service.reserve(ARTWORK_ID);
+
+        clock.advance(Duration.ofHours(72).minusNanos(1));
+        assertEquals(0, service.expireDueReservations());
+        assertFalse(service.isAvailable(ARTWORK_ID));
+
+        clock.advance(Duration.ofNanos(1));
+        assertEquals(1, service.expireDueReservations());
+        assertTrue(service.isAvailable(ARTWORK_ID));
+        assertEquals(0, service.expireDueReservations());
+        Reservation next = service.reserve(ARTWORK_ID);
+        assertNotNull(next);
+        assertNotNull(original.id());
+        assertFalse(service.isAvailable(ARTWORK_ID));
+    }
+
+    @Test
     void rejectsUnknownArtwork() {
         ReservationService service = new ReservationService(() -> List.of(ARTWORK), Clock.systemUTC());
         UUID unknownId = UUID.randomUUID();
