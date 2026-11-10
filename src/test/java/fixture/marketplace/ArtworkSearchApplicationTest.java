@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.SchedulingConfiguration;
+import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,6 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ArtworkSearchApplicationTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ScheduledAnnotationBeanPostProcessor scheduledAnnotationBeanPostProcessor;
+
+    @Test
+    void schedulingIsEnabledInTheApplicationContext() {
+        assertNotNull(scheduledAnnotationBeanPostProcessor);
+    }
 
     @Test
     void searchesAndReturnsDocumentedJsonShapeAndCurrentAvailability() throws Exception {
