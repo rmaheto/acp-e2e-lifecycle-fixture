@@ -15,6 +15,20 @@ public final class TextUtils {
     return value == null || value.length() == 0;
   }
 
+  /** Returns whether the value is null, empty, or contains only whitespace. */
+  public static boolean isBlank(String value) {
+    if (value == null) {
+      return true;
+    }
+
+    for (int i = 0; i < value.length(); i++) {
+      if (!Character.isWhitespace(value.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /** Returns whether the value ends with the specified suffix. */
   public static boolean endsWith(String value, String suffix) {
     return value != null && suffix != null && value.endsWith(suffix);

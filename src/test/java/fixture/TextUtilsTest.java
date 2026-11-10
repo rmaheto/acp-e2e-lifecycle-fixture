@@ -39,6 +39,26 @@ class TextUtilsTest {
   }
 
   @Test
+  void isBlank_whenValueIsNull_returnsTrue() {
+    assertTrue(TextUtils.isBlank(null));
+  }
+
+  @Test
+  void isBlank_whenValueIsEmpty_returnsTrue() {
+    assertTrue(TextUtils.isBlank(""));
+  }
+
+  @Test
+  void isBlank_whenValueIsWhitespaceOnly_returnsTrue() {
+    assertTrue(TextUtils.isBlank(" \t\n"));
+  }
+
+  @Test
+  void isBlank_whenValueContainsNonWhitespace_returnsFalse() {
+    assertFalse(TextUtils.isBlank(" hello "));
+  }
+
+  @Test
   void endsWith_whenSuffixMatches_returnsTrue() {
     assertTrue(TextUtils.endsWith("hello world", "world"));
   }
