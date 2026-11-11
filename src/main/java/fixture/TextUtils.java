@@ -29,6 +29,11 @@ public final class TextUtils {
     return true;
   }
 
+  /** Returns whether the value contains non-whitespace text. */
+  public static boolean isNotBlank(String value) {
+    return !isBlank(value);
+  }
+
   /** Returns whether the value ends with the specified suffix. */
   public static boolean endsWith(String value, String suffix) {
     return value != null && suffix != null && value.endsWith(suffix);
