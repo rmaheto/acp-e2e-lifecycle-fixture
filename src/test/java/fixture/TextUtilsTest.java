@@ -129,6 +129,21 @@ class TextUtilsTest {
   }
 
   @Test
+  void isPalindrome_whenTextIsNull_returnsFalse() {
+    assertFalse(TextUtils.isPalindrome(null));
+  }
+
+  @Test
+  void isPalindrome_whenMixedCasePalindrome_returnsTrue() {
+    assertTrue(TextUtils.isPalindrome("RaceCar"));
+  }
+
+  @Test
+  void isPalindrome_whenTextIsNotPalindrome_returnsFalse() {
+    assertFalse(TextUtils.isPalindrome("hello"));
+  }
+
+  @Test
   void normalizeDisplayName_whenNull_returnsEmpty() {
     assertEquals("", TextUtils.normalizeDisplayName(null));
   }

@@ -49,6 +49,27 @@ public final class TextUtils {
     return value != null && prefix != null && value.startsWith(prefix);
   }
 
+  /** Returns whether the text reads the same forwards and backwards, ignoring case. */
+  public static boolean isPalindrome(String text) {
+    if (text == null) {
+      return false;
+    }
+
+    int left = 0;
+    int right = text.length() - 1;
+    while (left < right) {
+      char leftChar = text.charAt(left);
+      char rightChar = text.charAt(right);
+      if (Character.toLowerCase(Character.toUpperCase(leftChar))
+          != Character.toLowerCase(Character.toUpperCase(rightChar))) {
+        return false;
+      }
+      left++;
+      right--;
+    }
+    return true;
+  }
+
   /** Returns a display name with whitespace trimmed and collapsed to single spaces. */
   public static String normalizeDisplayName(String name) {
     if (name == null) {
