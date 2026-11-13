@@ -10,6 +10,11 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns the text repeated the specified number of times. */
+  public static String repeat(String text, int times) {
+    return text == null || times <= 0 ? "" : text.repeat(times);
+  }
+
   /** Returns whether the value is null or has zero length. */
   public static boolean isNullOrEmpty(String value) {
     return value == null || value.length() == 0;
