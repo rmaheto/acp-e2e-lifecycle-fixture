@@ -19,6 +19,26 @@ class TextUtilsTest {
   }
 
   @Test
+  void repeat_whenTextIsNull_returnsEmpty() {
+    assertEquals("", TextUtils.repeat(null, 3));
+  }
+
+  @Test
+  void repeat_whenTimesIsZero_returnsEmpty() {
+    assertEquals("", TextUtils.repeat("hello", 0));
+  }
+
+  @Test
+  void repeat_whenTimesIsNegative_returnsEmpty() {
+    assertEquals("", TextUtils.repeat("hello", -2));
+  }
+
+  @Test
+  void repeat_whenTimesIsPositive_repeatsText() {
+    assertEquals("hellohellohello", TextUtils.repeat("hello", 3));
+  }
+
+  @Test
   void isNullOrEmpty_whenValueIsNull_returnsTrue() {
     assertTrue(TextUtils.isNullOrEmpty(null));
   }
