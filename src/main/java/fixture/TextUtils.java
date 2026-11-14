@@ -10,6 +10,26 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns the number of whitespace-separated words in the text. */
+  public static int countWords(String text) {
+    if (isBlank(text)) {
+      return 0;
+    }
+
+    int count = 0;
+    boolean beginningOfWord = true;
+    for (int i = 0; i < text.length(); i++) {
+      char character = text.charAt(i);
+      if (Character.isWhitespace(character)) {
+        beginningOfWord = true;
+      } else if (beginningOfWord) {
+        count++;
+        beginningOfWord = false;
+      }
+    }
+    return count;
+  }
+
   /** Returns the upper-cased first letter of each whitespace-separated word. */
   public static String initials(String text) {
     if (isBlank(text)) {

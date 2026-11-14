@@ -19,6 +19,31 @@ class TextUtilsTest {
   }
 
   @Test
+  void countWords_whenTextIsNull_returnsZero() {
+    assertEquals(0, TextUtils.countWords(null));
+  }
+
+  @Test
+  void countWords_whenTextIsBlank_returnsZero() {
+    assertEquals(0, TextUtils.countWords(" \t\n"));
+  }
+
+  @Test
+  void countWords_whenTextIsOneWord_returnsOne() {
+    assertEquals(1, TextUtils.countWords("hello"));
+  }
+
+  @Test
+  void countWords_whenTextHasSeveralWords_returnsWordCount() {
+    assertEquals(3, TextUtils.countWords("one two three"));
+  }
+
+  @Test
+  void countWords_whenWordsHaveExtraWhitespace_returnsWordCount() {
+    assertEquals(3, TextUtils.countWords("  one   two\tthree  "));
+  }
+
+  @Test
   void initials_whenTextIsNull_returnsEmpty() {
     assertEquals("", TextUtils.initials(null));
   }
