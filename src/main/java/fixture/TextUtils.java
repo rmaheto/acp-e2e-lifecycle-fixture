@@ -10,6 +10,26 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns the upper-cased first letter of each whitespace-separated word. */
+  public static String initials(String text) {
+    if (isBlank(text)) {
+      return "";
+    }
+
+    StringBuilder initials = new StringBuilder();
+    boolean beginningOfWord = true;
+    for (int i = 0; i < text.length(); i++) {
+      char character = text.charAt(i);
+      if (Character.isWhitespace(character)) {
+        beginningOfWord = true;
+      } else if (beginningOfWord) {
+        initials.append(Character.toUpperCase(character));
+        beginningOfWord = false;
+      }
+    }
+    return initials.toString();
+  }
+
   /** Returns the text repeated the specified number of times. */
   public static String repeat(String text, int times) {
     return text == null || times <= 0 ? "" : text.repeat(times);
