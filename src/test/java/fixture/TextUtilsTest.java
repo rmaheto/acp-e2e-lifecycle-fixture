@@ -19,6 +19,26 @@ class TextUtilsTest {
   }
 
   @Test
+  void initials_whenTextIsNull_returnsEmpty() {
+    assertEquals("", TextUtils.initials(null));
+  }
+
+  @Test
+  void initials_whenTextIsBlank_returnsEmpty() {
+    assertEquals("", TextUtils.initials(" \t\n"));
+  }
+
+  @Test
+  void initials_whenTextIsOneWord_returnsUpperCaseFirstLetter() {
+    assertEquals("A", TextUtils.initials("ada"));
+  }
+
+  @Test
+  void initials_whenWordsAreSeparatedByMultipleSpaces_returnsConcatenatedInitials() {
+    assertEquals("JRR", TextUtils.initials("john   ronald  reuel"));
+  }
+
+  @Test
   void repeat_whenTextIsNull_returnsEmpty() {
     assertEquals("", TextUtils.repeat(null, 3));
   }
