@@ -15,6 +15,17 @@ public final class TextUtils {
     return text == null ? "" : text.toUpperCase();
   }
 
+  /** Returns the first maxLength characters of the text, or null for null input. */
+  public static String truncate(String text, int maxLength) {
+    if (maxLength < 0) {
+      throw new IllegalArgumentException("maxLength must not be negative");
+    }
+    if (text == null || text.length() <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength);
+  }
+
   /** Returns the number of whitespace-separated words in the text. */
   public static int countWords(String text) {
     if (isBlank(text)) {
