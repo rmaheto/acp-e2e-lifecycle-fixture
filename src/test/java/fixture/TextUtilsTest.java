@@ -9,13 +9,18 @@ import org.junit.jupiter.api.Test;
 class TextUtilsTest {
 
   @Test
-  void shout_whenNull_returnsEmpty() {
-    assertEquals("", TextUtils.shout(null));
+  void shout_whenNull_returnsExclamationMark() {
+    assertEquals("!", TextUtils.shout(null));
   }
 
   @Test
-  void shout_whenText_returnsUpperCase() {
-    assertEquals("HELLO", TextUtils.shout("hello"));
+  void shout_whenTextIsEmpty_returnsExclamationMark() {
+    assertEquals("!", TextUtils.shout(""));
+  }
+
+  @Test
+  void shout_whenText_returnsUpperCaseWithExclamationMark() {
+    assertEquals("HELLO!", TextUtils.shout("hello"));
   }
 
   @Test

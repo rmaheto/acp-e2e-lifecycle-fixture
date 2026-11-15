@@ -10,9 +10,9 @@ public final class TextUtils {
     return text == null ? null : new StringBuilder(text).reverse().toString();
   }
 
-  /** Returns the text upper-cased, or an empty string for null. */
+  /** Returns the text upper-cased with an exclamation mark, or "!" for null. */
   public static String shout(String text) {
-    return text == null ? "" : text.toUpperCase();
+    return (text == null ? "" : text.toUpperCase()) + "!";
   }
 
   /** Returns the first maxLength characters of the text, or null for null input. */
