@@ -5,9 +5,9 @@ public final class TextUtils {
 
   private TextUtils() {}
 
-  /** Returns the text with its characters in reverse order, or null for null input. */
+  /** Returns the text with its characters in reverse order, or an empty string for null input. */
   public static String reverse(String text) {
-    return text == null ? null : new StringBuilder(text).reverse().toString();
+    return text == null ? "" : new StringBuilder(text).reverse().toString();
   }
 
   /** Returns the text upper-cased with an exclamation mark, or "!" for null. */
