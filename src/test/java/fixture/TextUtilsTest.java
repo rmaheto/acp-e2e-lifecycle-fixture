@@ -9,6 +9,26 @@ import org.junit.jupiter.api.Test;
 class TextUtilsTest {
 
   @Test
+  void reverse_whenTextIsNull_returnsEmptyString() {
+    assertEquals("", TextUtils.reverse(null));
+  }
+
+  @Test
+  void reverse_whenTextIsEmpty_returnsEmptyString() {
+    assertEquals("", TextUtils.reverse(""));
+  }
+
+  @Test
+  void reverse_whenTextHasOneCharacter_returnsSameCharacter() {
+    assertEquals("a", TextUtils.reverse("a"));
+  }
+
+  @Test
+  void reverse_whenTextIsWord_returnsReversedText() {
+    assertEquals("olleh", TextUtils.reverse("hello"));
+  }
+
+  @Test
   void shout_whenNull_returnsExclamationMark() {
     assertEquals("!", TextUtils.shout(null));
   }
