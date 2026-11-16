@@ -1,15 +1,14 @@
 package fixture;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
 class TextUtilsReverseTest {
 
   @Test
-  void reverse_whenTextIsNull_returnsNull() {
-    assertNull(TextUtils.reverse(null));
+  void reverse_whenTextIsNull_returnsEmpty() {
+    assertEquals("", TextUtils.reverse(null));
   }
 
   @Test
