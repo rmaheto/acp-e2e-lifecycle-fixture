@@ -76,6 +76,21 @@ public final class TextUtils {
     return value == null || value.length() == 0;
   }
 
+  /** Returns whether the text is non-empty and contains only ASCII digits. */
+  public static boolean isNumeric(String text) {
+    if (text == null || text.isEmpty()) {
+      return false;
+    }
+
+    for (int i = 0; i < text.length(); i++) {
+      char character = text.charAt(i);
+      if (character < '0' || character > '9') {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /** Returns whether the value is null, empty, or contains only whitespace. */
   public static boolean isBlank(String value) {
     if (value == null) {
