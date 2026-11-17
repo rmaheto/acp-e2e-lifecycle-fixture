@@ -129,6 +129,26 @@ class TextUtilsTest {
   }
 
   @Test
+  void isNumeric_whenTextIsNull_returnsFalse() {
+    assertFalse(TextUtils.isNumeric(null));
+  }
+
+  @Test
+  void isNumeric_whenTextIsEmpty_returnsFalse() {
+    assertFalse(TextUtils.isNumeric(""));
+  }
+
+  @Test
+  void isNumeric_whenTextContainsOnlyDigits_returnsTrue() {
+    assertTrue(TextUtils.isNumeric("0123456789"));
+  }
+
+  @Test
+  void isNumeric_whenTextContainsALetter_returnsFalse() {
+    assertFalse(TextUtils.isNumeric("123a45"));
+  }
+
+  @Test
   void isBlank_whenValueIsNull_returnsTrue() {
     assertTrue(TextUtils.isBlank(null));
   }
